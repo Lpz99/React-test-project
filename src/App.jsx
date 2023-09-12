@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import MovieCard from './MovieCard'
+import MovieCard from './components/MovieCard'
+import Navbar from './components/Navbar'
 
-
-function App() {
+function App({router}) {
   const [search, setSearch] = useState('');
 
   const [movieBase, setMovieBase] = useState([]);
@@ -22,21 +22,15 @@ function App() {
   )
 
   const card = movieBase.map(item => (< MovieCard movie={item} />));
-
+  
   return (
     <>
-      <div className='navbar'>
-      <h1>Movie</h1>
-      <div className='searchBar'>
-        <input placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)}
-        onKeyDown={(e)=> e.key === 'Enter' ? runMovie(search) : null }/>
-        <button onClick={() => runMovie(search)}>Search</button>
-      </div>
-      </div>
-      <div className='card-container'> 
+      <Navbar search={search} setSearch={setSearch} runMovie={runMovie}/>
+      <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'> 
         {card}
       </div>
-    </>
+
+      </>
   )
 }
 
